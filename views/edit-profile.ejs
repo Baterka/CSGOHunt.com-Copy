@@ -1,0 +1,22 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-form">
+                    <div class="form-group">
+                        <label for="trade-url" class="control-label">Your steam trade link, required to receive your winnings. It can be found
+                            <a target="_blank" href="https://steamcommunity.com/profiles/<%= user.steamid %>/tradeoffers/privacy#trade_offer_access_url">here.</a>
+                        </label>
+                        <input id="trade-url" type="text" placeholder="Your trade url" value="<%= user.tradelink%>" autocomplete="off" class="form-control">
+                        <input id="csrf" type="hidden" name="_csrf" value="<%= _csrf %>">
+                    </div>
+                    <div class="form-group">
+                        <button id="save-profile-btn" type="button" class="btn btn-default">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- contentFor('scripts') %>
+<script src="/js/profile.js?v=<%= Date.now() %>" type="text/javascript"></script>

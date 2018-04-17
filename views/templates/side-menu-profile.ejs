@@ -1,0 +1,26 @@
+<div class="profile">
+    <div class="level">Level: <%= user.level %></div>
+    <div><img src="<%= user.avatar %>_full.jpg" alt="profil_avatar"></div>
+    <ul class="list-inline">
+        <li>
+            <a href="/edit-profile" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Settings">
+                <i class="fa fa-cogs"></i>
+            </a>
+        </li>
+        <li>
+            <a href="/jackpot/history" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="History">
+                <i class="fa fa-history"></i>
+            </a>
+        </li>
+        <!--<li>
+            <a href="/inventory" data-toggle="tooltip" data-placement="bottom" title="" target="_blank" data-original-title="Inventory">
+                <i class="fa fa-suitcase"></i>
+            </a>
+        </li>-->
+        <li>
+            <a href="/auth/logout" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Logout">
+                <i class="fa fa-sign-out"></i>
+            </a>
+        </li>
+    </ul>
+</div>

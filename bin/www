@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+const app = require('../express'),
+    log = require('../models/log'),
+    http = require('http'),
+    config = require('../config'),
+    Db = require('../models/db');
+
+const port = config.servers.ports.website;
+app.set('port', port);
+
+const server = http.createServer(app);
+
+const io = app.io;
+io.attach(server);
+
+Db.sequelize.authenticate().then(() => {
+    log.info("Successfully connected to database");
+    server.listen(port);
+
+    server.on('error', onError);
+    server.on('listening', onListening);
+}).catch(err => {
+    log.error("An error occurred while connecting to database: " + err);
+    process.exit(1);
+});
+
+function onError(error) {
+    switch (error.code) {
+        case 'EACCES':
+            log.error('Port ' + port + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            log.error('Port ' + port + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            log.error('An error occurred while starting Express server: ' + error.code);
+            process.exit(1);
+    }
+}
+
+function onListening() {
+    log.info('HTTP & Socket.IO servers listening on port ' + port);
+}

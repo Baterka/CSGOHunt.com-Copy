@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        CSGOHunt.com - <%= error.title %>
+    </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="<%= config.website.meta.description %>">
+    <meta name="keywords" content="<%= config.website.meta.keywords %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap-alt.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css?v=<%= Date.now() %>">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <%- defineContent('styles') %>
+</head>
+<body>
+<div id="top-menu" class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target="#main-nav-collapse" class="navbar-toggle collapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="brand">
+                <img src="/img/logo.png" alt="<%= config.website.name %>" width="200">
+            </a>
+        </div>
+    </div>
+</div>
+<%- body %>
+<!-- TODO: Google Analytics -->
+</body>
+</html>

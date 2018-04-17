@@ -1,0 +1,153 @@
+#chatWindow {
+    color: #fff;
+    height: 80%;
+    position: relative;
+}
+
+.coinflip-banner {
+    position: absolute;
+    z-index: 500;
+}
+
+.coinflip-banner a {
+    display: block;
+    width: 100%;
+    height: 192px;
+    text-align: center;
+}
+
+.coinflip-banner img {
+    height: 192px;
+}
+
+.coinflip-banner-b {
+    position: absolute;
+    z-index: 500;
+}
+
+.coinflip-banner-b a {
+    display: block;
+    width: 100%;
+    height: 75px;
+    text-align: center;
+}
+
+.coinflip-banner-b img {
+    height: 192px;
+}
+
+.jackpot-banner-b img {
+    height: 75px;
+}
+
+#chatStatus {
+    padding: 10px 15px;
+    color: #fff;
+}
+
+#chatStatus:after {
+    clear: both;
+    display: block;
+    content: "";
+}
+
+#chatStatus .close {
+    opacity: 0.8;
+    color: #fff;
+}
+
+#chatStatus .close:hover {
+    opacity: 1.0;
+    color: #fff;
+}
+
+#chatStatus.online {
+    border-bottom: 1px solid #2196f3;
+}
+
+#chatStatus.offline {
+    border-bottom: 1px solid #f44336;
+}
+
+#chatMessages {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    font-size: 0.9em;
+    padding: 10px 15px 0 15px;
+    overflow: auto;
+}
+
+#chatMessages::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #111;
+}
+
+#chatMessages::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #111;
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+    background-color: #555555;
+}
+
+.chat-message {
+    padding: 5px 0;
+}
+
+.chat-message .chat-user {
+    font-size: 13px;
+    color: #eee;
+    margin-bottom: 5px;
+}
+
+.chat-message .chat-user img {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.chat-message .chat-content {
+    padding: 3px;
+    display: inline;
+    color: #aaa;
+}
+
+.emot {
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+#chatActions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    padding: 10px;
+}
+
+#chatInput {
+    color: #aaa;
+    width: 55%;
+    float: left;
+    background-color: #252525;
+    border-color: #444;
+}
+
+#chatInput:focus {
+    box-shadow: none;
+}
+
+#chatEmotsBtn {
+    width: 15%;
+    float: right;
+}
+
+#chatSendBtn {
+    width: 30%;
+    float: right;
+}

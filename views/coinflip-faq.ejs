@@ -1,0 +1,98 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">
+                    <i class="fa fa-question-circle"></i> Coinflip FAQ
+                </h2>
+                <h3>What is this game?</h3>
+                <p>CSGOHunt's coinflip a simple way to 1vs1 against other players and attempt to win their skins. To do so, all you have to do is either create a coinflip by
+                    picking the items you want to gamble, or join an existing one granted that you can place items valued at the same prices within a 10% margin. For example, if a
+                    round was created with items valued at 100.00 points, then you will have to place a bet between 90.00 and 110.00 points.</p>
+                <h3>How to create a Coinflip?</h3>
+                <p>When creating a round, simply click on "Create a coinflip". You will then see all the items from your current inventory and will be able to pick the ones you
+                    want to gamble. Note that the minimum bet is 5.00 points for a maximum of 10 items.</p>
+                <h3>How to join a Coinflip?</h3>
+                <p>Joining a game is as easy as creating one, just click on "Join" on a coinflip that you're interested in. You will then be presented a different kind of inventory
+                    window, this one will have more information about what you need to add or remove to reach the correct bet amount.</p>
+                <p>Once the offer is sent by one of our bot, a timer indicating that someone is trying to join will be triggered. It will last for 2 minutes to give time to the
+                    player to accept and confirm the offer. Past this time, the offer will be canceled and the round will once again become free for everyone to join.</p>
+                <h3>What happen when a coinflip is over?</h3>
+                <p>Once a round end, our bot will send you the trade offer right away. It is recommended to accept it as soon as possible to avoid any issue. Note that a commission
+                    of 0 to 5% may apply, up to 10% if no items matching 5% is available, however the items that the bot keep cannot be the one that you used to create the
+                    coinflip. If no items matches the commission range, then no commission will be applied.</p>
+                <h2 class="text-center">
+                    <i class="fa fa-balance-scale"></i> Provably fair
+                </h2>
+                <h3>How is the winner picked?</h3>
+                <p>Since every player can place a bet within a 10% of the total value, some coinflip may not be exactly 50/50 chance of winning. The chances will be affected by how
+                    much you place. For instance, if someone create a coinflip of 1000.00 points and a player join with 1100.00, the player that joined will have more chances of
+                    winning because his bet is higher. All the % are presented within the Join menu.</p>
+                <p>The player that picks CT side will own the EARLY numbers, the one that joined as T-Side will own the LATE numbers.</p>
+                <p>Here is a quick example: A coinflip valued at 1000.00 points is created. Then someone join it with 1000.00, in this case his chances of winning would be 50%. The
+                    player that created the round as CT will have number 0 to 50%, the player that join as T will have 51 to 100%.</p>
+                <p>Once the number generation is over, if the number is between 0 and 50, then the player that created the round will win! Otherwise, the player that joined wins
+                    the game.</p>
+                <h3>How does the number generation works and what is provably fair?</h3>
+                <p>To ensure that every coinflip is fair and cannot be tempered with, we are using a distributed RNG system.</p>
+                <p>The way it works is relatively simple: Each player generate a 'seed' (a string of random characters) and attach it to the create or join request. The server will
+                    also generate a seed and show its 'hash' (an encrypted version of the seed) to both players to garantee that it wasn't changed during any steps of the
+                    coinflip.</p>
+                <p>Once the coinflip is over, all three seeds will be used to compute the winning percentage and the secret used to create the server 'hash' will also be
+                    revealed.</p>
+                <p>In conclusion, this mean that each players will contribute to the result of the final number, therefore no one can predict, influance or know the number
+                    beforehand.</p>
+                <h3>Verify a round fairness</h3>
+                <p>You can use the form below to check the roll for every combination of seed, that is the server, player 1 and player 2 seeds. Remember that you can see all the
+                    seed only once a round is over!</p>
+                <div style="margin-bottom: 50px;" class="form-horizontal">
+                    <input tye="text" name="sseed" placeholder="Server seed" class="form-control">
+                    <input tye="text" name="cseed" placeholder="Player 1 seed" class="form-control">
+                    <input tye="text" name="jseed" placeholder="Player 2 seed" class="form-control">
+                    <button onclick="getRoll()" class="btn btn-info btn-block btn-check">Compute roll</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('scripts') %>
+<script type="text/javascript">$(function () {
+        if (!window.location.hash)
+            return;
+
+        var seeds = window.location.hash.substring(1).split(";");
+        $('input[name="sseed"]').val(seeds[0]);
+        $('input[name="cseed"]').val(seeds[1]);
+        $('input[name="jseed"]').val(seeds[2]);
+        $('html, body').animate({
+            scrollTop: $(".btn-check").offset().top
+        }, 2000);
+    });
+
+    function getRoll() {
+        var ss = $('input[name="sseed"]').val();
+        var cs = $('input[name="cseed"]').val();
+        var js = $('input[name="jseed"]').val();
+        if (!ss || !cs || !js)
+            return alert("You need to set all the seed to check the roll");
+
+        $.ajax({
+            method: "GET",
+            url: "/api/duel-check",
+            dataType: "json",
+            cache: false,
+            data: {
+                server_seed: ss,
+                c_seed: cs,
+                j_seed: js
+            },
+            success: function (data) {
+                alert("The roll is " + data.roll);
+            },
+            error: function (xhr, sline, err) {
+                alert(err || sline);
+            }
+        })
+    }
+</script>

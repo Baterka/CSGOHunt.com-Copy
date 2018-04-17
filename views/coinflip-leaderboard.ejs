@@ -1,0 +1,39 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="margin-top: 0;" class="pull-left">Top 10 coinflip players</h2>
+                <div class="btn-group pull-right">
+                    <a href="/leaderboard" class="btn btn-default">Jackpot</a>
+                    <a href="/leaderboard/coinflip" class="btn btn-default">Coinflip</a>
+                </div>
+                <table class="table std-table">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Name</th>
+                        <th>Total won</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                    let i = 1;
+                            for(let player of players){
+                    %>
+                    <tr>
+                        <td class="text-center"><%= i %></td>
+                        <td>
+                            <img src="<%= player.avatar %>" style="margin-right: 20px;"> <%= player.name %>
+                        </td>
+                        <td><%= player.coinflipTotalWon %></td>
+                    </tr>
+                    <%
+                        i++;
+                    }
+                    %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

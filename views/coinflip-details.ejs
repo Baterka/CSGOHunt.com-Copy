@@ -1,0 +1,94 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Details for coinflip #5ab6ce20eb643700141595f1</h2>
+                <ul class="list-unstyled">
+                    <li>ID
+                        <span class="pull-right"><%= round.roundID %></span>
+                    </li>
+                    <li>Ended on
+                        <span class="pull-right"><%= round.updatedAt %></span>
+                    </li>
+                    <li>Server seed
+                        <span class="pull-right"><%= round.hashes.seed %></span>
+                    </li>
+                    <li>Server secret
+                        <span class="pull-right"><%= round.hashes.secret %></span>
+                    </li>
+                    <li>Server hash
+                        <span class="pull-right"><%= round.hashes.hash %></span>
+                    </li>
+                    <li>Player 1 seed
+                        <span class="pull-right"><%= round.hashes.c_seed %></span>
+                    </li>
+                    <li>Player 2 seed
+                        <span class="pull-right"><%= round.hashes.j_seed %></span>
+                    </li>
+                    <li>Roll
+                        <span class="pull-right"><%= round.hashes.percent %></span>
+                    </li>
+                    <li>Winner
+                        <strong class="pull-right"><%= round.winner %></strong>
+                    </li>
+                    <li>Total value
+                        <span class="pull-right"><%= round.totalValue %></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div style="border-right: 1px solid #333;" class="col-md-6">
+                <img src="/img/<%= round.creator.user.side %>-side.png" width="64">
+                <h4>
+                    <img src="<%= round.creator.user.avatar %>"
+                         class="duel-details-winner"> <%= round.creator.user.name %>
+                </h4>
+                <ul class="list-inline">
+                    <% for(let item of round.creator.items){ %>
+                    <li>
+                        <div class="jackpot-item">
+                            <div class="jackpot-item-wrp">
+                                <img src="<%= item.img %>">
+                                <div class="item-name"><%= item.name %></div>
+                                <div class="item-price"><%= parseFloat(item.price / 100).toFixed(2) %></div>
+                            </div>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="/img/<%= (round.creator.user.side === "ct" ? "t" : "ct") %>-side.png" width="64">
+                <h4>
+                    <img src="<%= round.joiner.user.avatar %>"> <%= round.joiner.user.name %>
+                </h4>
+                <ul class="list-inline">
+                    <% for(let item of round.joiner.items){ %>
+                    <li>
+                        <div class="jackpot-item">
+                            <div class="jackpot-item-wrp">
+                                <img src="<%= item.img %>">
+                                <div class="item-name"><%= item.name %></div>
+                                <div class="item-price"><%= parseFloat(item.price / 100).toFixed(2) %></div>
+                            </div>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div style="margin-top: 20px;" class="col-md-12 text-center">
+                <a href="/coinflip-faq#<%= round.hashes.seed %>;<%= round.hashes.c_seed %>;<%= round.hashes.j_seed %>" class="btn btn-lg btn-info">
+                    <i class="fa fa-balance-scale"></i> Check round provably fair
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<%- contentFor('scripts') %>
+<script>
+    var bets = <%- JSON.stringify(round.bets) %>;
+</script>
+<script src="/js/detail.js?v=<%= Date.now() %>" type="text/javascript"></script>

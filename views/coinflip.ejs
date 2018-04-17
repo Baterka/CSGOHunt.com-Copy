@@ -1,0 +1,72 @@
+<%- contentFor('styles') %>
+<link href="/css/coinflip.css?v=<%= Date.now() %>" rel="stylesheet" type="text/css">
+<div id="main-content" class="container-fluid panel-open">
+    <div id="sp-toggle">
+        <i class="fa fa-chevron-right arrow"></i>
+        <i class="fa fa-comment-o"></i> Chat
+    </div>
+    <div id="socket-status" class="alert alert-info">Connecting please wait.</div>
+    <div id="duel-game-ui" style="display: none;">
+        <div class="ui-info">
+            <div class="row">
+                <div class="col-md-9">
+                    <ul class="list-inline live-info">
+                        <li>
+                            <h4>Total value</h4>
+                            <p>
+                                <img src="/img/coins-white.png" width="24">
+                                <span class="total">0.00</span>
+                            </p>
+                        </li>
+                        <li>
+                            <h4>Numbers of coinflip</h4>
+                            <span class="nbr-round">0</span>
+                        </li>
+                        <li>
+                            <h4>Your total placed</h4>
+                            <span class="current-bets">-</span>
+                        </li>
+                        <li>
+                            <h4>
+                                <i style="color: #ec9d06;" class="fa fa-star"></i> MVP of the day
+                            </h4>
+                            <div class="mvp">-</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success btn-create btn-lg btn-block">
+                        <i class="fa fa-plus-square"></i> Create a coinflip
+                    </button>
+                    <button class="btn btn-default btn-history btn-block">
+                        <i class="fa fa-history"></i> History
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-info">The minimum flip value is TEMPORARILY raised to $5 due to Steam issues.</div>
+        <div class="alert giveaway"> 👉 Add CSGOHunt.com to your name and enjoy 0% commission on Coinflips 👈</div>
+        <div class="ui-content">
+            <table class="rounds no-background">
+                <thead>
+                <tr>
+                    <th>Side</th>
+                    <th>Players</th>
+                    <th>Items</th>
+                    <th>Value/range</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody class="own"></tbody>
+                <tbody class="others"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<% include chat %>
+<%- contentFor('scripts') %>
+<% include templates/coinflip-handlebars %>
+<script type="text/javascript" src="/js/jquery.countdown360.js"></script>
+<% include templates/games-scripts %>
+<script src="/js/coinflip.js?v=<%= Date.now() %>" type="text/javascript"></script>

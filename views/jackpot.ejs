@@ -1,0 +1,109 @@
+<div id="main-content" class="container-fluid panel-open">
+    <div id="sp-toggle">
+        <i class="fa fa-chevron-right arrow"></i>
+        <i class="fa fa-comment-o"></i> Chat
+    </div>
+    <div id="sound-toggle" data-value="on">
+        <i class="fa fa-volume-up"></i>
+    </div>
+    <div id="mobile-deposit-wrapper">
+        <% if(user){ %>
+        <a href="/jackpot/deposit" target="_blank" class="btn btn-danger btn-lg">
+            <i class="fa fa-steam fa-lg fa-fw"></i>Deposit
+        </a>
+        <% } else { %>
+        <a href="/auth" class="btn btn-danger btn-lg">
+            <i class="fa fa-steam fa-lg fa-fw"></i>Sign in to Deposit
+        </a>
+        <% } %>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="knob-wrapper">
+                <div class="iknob-outter">
+                    <input data-fgColor="#c7413b" data-bgColor="#2c2c2c" data-width="450" data-height="450" data-min="0"
+                           data-max="<%= config.global.jackpot.potItemsLimit %>" data-readOnly="true"
+                           data-displayInput="false" data-thickness="0.35" class="pot-knob pot-knob-outter">
+                </div>
+                <div class="iknob-inner">
+                    <input data-fgColor="#2ecc71" data-bgColor="#2c2c2c" data-width="290" data-height="290" data-min="0"
+                           data-max="1000" data-readOnly="true" data-thickness="0.05"
+                           data-displayInput="false" class="pot-knob pot-knob-inner">
+                </div>
+                <span data-value="0" class="pot-value">0.00</span>
+                <span data-count="0" class="pot-item-count">0/50</span>
+            </div>
+            <div id="pot-info">
+                <div class="pot-early-timer">Countdown starts in
+                    <span class="time-remaining">--</span> seconds...
+                    <div class="progress">
+                        <div data-value="0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                             class="progress-bar progress-bar-success"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="pot-content"></div>
+        </div>
+        <div class="col-sm-6">
+            <div id="message" style="display: none;" class="alert alert-info">
+                <i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Connecting... please wait
+            </div>
+            <div id="live">
+                <% config.global.jackpot.alertBar.forEach((alert)=>{ %>
+                <div class="alert <%= alert.type %>">
+                    <%- alert.html %>
+                </div>
+                <% }); %>
+                <div id="deposit">
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <% if(user){ %>
+                            <a href="/jackpot/deposit" target="_blank" class="btn btn-danger btn-lg">
+                                <i class="fa fa-steam fa-lg fa-fw"></i>Deposit
+                            </a>
+                            <% } else { %>
+                            <a href="/auth" class="btn btn-danger btn-lg">
+                                <i class="fa fa-steam fa-lg fa-fw"></i>Sign in to Deposit
+                            </a>
+                            <% } %>
+                            <div class="deposit-info">Max
+                                <strong><%= config.offers.jackpot.maxItems %> </strong>items/trade -
+                                <strong>$<%= config.offers.jackpot.minTotalPrice / 100 %></strong> minimum value
+                            </div>
+                        </div>
+                        <% if(!user){ %>
+                        <div class="col-md-7 text-center">You need to be logged in to deposit items.</div>
+                        <% } else { %>
+                        <div class="deposit-current col-md-6 text-center">
+                            <ul class="list-unstyled list-inline">
+                                <li>Total placed<p class="value">0</p></li>
+                                <li>Chances of winning<p class="wchance">0%</p></li>
+                            </ul>
+                        </div>
+                        <% } %>
+                    </div>
+                    <div class="details-toggle">View details</div>
+                </div>
+                <div id="odds-details">
+                    <div class="content">
+                        <h5 class="text-muted">Players odds</h5>
+                    </div>
+                </div>
+                <div id="events"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<audio id="opening-sound" src="/audio/opening-sound.mp3" type="audio/mpeg"></audio>
+<% include chat %>
+<%- contentFor('scripts') %>
+<% include templates/jackpot-handlebars %>
+<script id="roll-template" type="text/x-handlebars-template">
+    <div data-id="{{roundID}}" data-id-winner="{{winnerID}}" class="roll">
+        <div class="roll-br"></div>
+        <div class="p-entries"></div>
+    </div>
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js" type="text/javascript"></script>
+<% include templates/games-scripts %>
+<script src="/js/jackpot.js?v=<%= Date.now() %>" type="text/javascript"></script>

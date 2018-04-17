@@ -1,0 +1,42 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js" type="text/javascript"></script>
+<script id="chat-message-tpl" type="text/x-handlebars-template">
+    <div data-sid="{{from.steamID}}" class="chat-message">
+        <a target="_blank" href="https://steamcommunity.com/profiles/{{from.steamID}}" class="chat-user">
+            <img src="{{from.avatar}}">{{from.displayName}}:
+        </a>
+        <div class="chat-content">{{message}}</div>
+    </div>
+</script>
+<script id="turl-modal-content" type="text/x-mustache">
+    <p>In order to be able to send your winning trade offer, you need to set your trade URL. It can be found on your steam profile by clicking the button below. Also make sure that
+        your inventory is public!</p>
+    <div class="text-center">
+        <a target="_blank" href="http://steamcommunity.com/profiles/{{steamid}}/tradeoffers/privacy#trade_offer_access_url" class="btn btn-lg btn-info">
+            Click HERE to find your trade URL
+        </a>
+    </div>
+    <hr>
+    <div class="form-horizontal">
+        <div style="margin: 0;" class="form-group">
+            <label for="tradeurl">
+                Your trade URL
+            </label>
+            <input id="tradeurl" type="text" placeholder="Enter your trade url here" class="form-control">
+            <input id="csrf" type="hidden" name="_csrf" value="<%= _csrf %>">
+        </div>
+        <div class="form-result">
+        </div>
+    </div>
+
+</script>
+<script type="text/javascript">
+    window.Application = {
+        sockets: <%- JSON.stringify(config.client.sockets, null, 2) %>,
+        sid: <%- (user ? "\"" + user.steamid + "\"" : "null") %>,
+        stk: null,
+        pil: <%- (config.global.jackpot.potItemsLimit) + (user ? "," : "") %>
+        <%- (user ? "ntd: " + (user.tradeToken === null ? "true" : "false") : "") %>
+    };
+</script>
+<script src="/js/chat.js?v=<%= Date.now() %>" type="text/javascript"></script>
+<script src="/js/cmodal.js?v=<%= Date.now() %>" type="text/javascript"></script>

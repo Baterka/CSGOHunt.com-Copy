@@ -1,0 +1,75 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5"><h3>Round data</h3>
+                <ul class="list-unstyled">
+                    <li>
+                        Round ID: <span class="pull-right"><%= round.roundID %></span></li>
+                    <li>
+                        Start date: <span class="pull-right"><%- new Date(round.createdAt).toISOString() %></span></li>
+                    <li>
+                        End date: <span class="pull-right"><%- new Date(round.endedAt).toISOString() %></span></li>
+                </ul>
+                <h3>Players</h3>
+                <table class="table std-table">
+                    <tbody>
+                    <% for(let k in round.players) { %>
+                    <tr>
+                        <td>
+                            <a href="<%= round.players[k].profileURL %>" target="_blank" style="font-size: 20px;">
+                                <img src="<%= round.players[k].avatar %>" width="32"> <%= round.players[k].name %></a>
+                        </td>
+                        <td><%= round.players[k].probability.percent %>% / $<%= round.players[k].probability.value %></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-7">
+                <div id="events">
+                    <div class="event event-end">
+                        <div class="event-winner">
+                            <span class="event-user-profile">
+                                <a href="<%= round.players[round.winnerSteamID].profileURL %>" target="_blank">
+                                    <img src="<%= round.players[round.winnerSteamID].avatar %>" width="32"><%= round.players[round.winnerSteamID].name %>
+                                </a>
+                            </span> won $<%= round.winnerValue %> with <%= round.players[round.winnerSteamID].probability.percent %>% chance
+
+                        </div>
+                        <div class="event-round-data">Round secret: <%= round.hashes.secret %> - percent: <%= round.hashes.percentage %>
+                            <a href="/faq#<%= round.hashes.hash %>;<%= round.hashes.secret %>;<%= round.hashes.percentage %>;<%= round.totalValue %>">what is this?</a>
+                        </div>
+                    </div>
+                    <% for(let bet of round.bets){ %>
+                    <div class="event event-update" data-offer="<%= bet.offerID %>">
+                        <span class="event-user-profile">
+                            <a href="<%= bet.user.profileURL %>" target="_blank">
+                                <img src="<%= bet.user.avatar %>" width="32"><%= bet.user.name %></a></span>
+                        <span class="event-user-bet"> placed <%= bet.nbrItems %> items valued at <strong>$<%= bet.valuedAt %></strong></span>
+                    </div>
+                    <% } %>
+                    <div class="event event-start">New round started with hash <%= round.hashes.hash %></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Items you placed</h2>
+                <% for(let item of round.itemsPlaced){ %>
+                <div class="jackpot-item pull-left">
+                    <div class="jackpot-item-wrp">
+                        <img src="<%= item.avatar %>">
+                        <div class="item-name"><%= item.name %></div>
+                        <div class="item-price"><%= item.price %></div>
+                    </div>
+                </div>
+                <% }; %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- contentFor('scripts') %>
+<script>
+    var bets = <%- JSON.stringify(round.bets) %>;
+</script>
+<script src="/js/detail.js?v=<%= Date.now() %>" type="text/javascript"></script>

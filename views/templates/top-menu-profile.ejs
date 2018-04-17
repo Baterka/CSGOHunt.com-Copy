@@ -1,0 +1,11 @@
+<div class="dropdown">
+    <div data-toggle="dropdown" role="button" aria-expanded="false">
+        <div class="level">Level: <%= user.level %></div>
+        <img src="<%= user.avatar %>.jpg" alt="profil_avatar"></div>
+    <ul role="menu" class="dropdown-menu">
+        <li><a href="/edit-profile"><i class="fa fa-cogs"></i> Settings</a></li>
+        <li><a href="/jackpot/history"><i class="fa fa-history"></i> History</a></li>
+        <!--<li><a href="/inventory"><i class="fa fa-suitcase"></i> Inventory</a></li>-->
+        <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+    </ul>
+</div>

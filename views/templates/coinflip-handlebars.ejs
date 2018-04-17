@@ -1,0 +1,233 @@
+<script id="mvp-tpl" type="text/x-handlebars-template">
+    <div data-toggle="tooltip" title="Won {{total}} in the last 24 hours">
+        <img src="{{avatar}}">
+        <span>{{name}}</span>
+    </div>
+</script>
+<script id="tpl-inv" type="text/x-mustache">
+            <div class="item-picker">
+                <p>Choose the items you would like to deposit
+                    <br>
+                    <span style="font-size: smaller">Min value 5.00 - Max 10 items</span>
+                </p>
+                <div class="inv-search"></div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="status-message"></div>
+                        <div class="inv-content"></div>
+                        <div class="refresh-info text-muted"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="inv-total">
+                            <h4>Bet value</h4>
+                            <span class="label label-primary to-value">0.00</span>
+                            <span class="to-hint"></span>
+                            <div class="join-info">
+                                <h4>Price ranges</h4>
+                                <span class="p-range"></span>
+                                <h4>Chances of winning</h4>
+                                <span class="w-chances">--%</span>
+                            </div>
+                        </div>
+                        <div class="side-info text-center">
+                            <h4>Select your side</h4>
+                            <label>
+                                <input type="radio" name="side" value="ct" checked="checked">
+                                <img src="/img/ct-side.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="side" value="t">
+                                <img src="/img/t-side.png">
+                            </label>
+                            <p style="opacity: 0.7; font-size: 0.7em">CT: 0-50% - T: 50-100% within 5% margin</p>
+                        </div>
+                        <div class="form-group player-seed">
+                            <input type="hidden" name="p-seed" placeholder="Custom seed here" class="form-control">
+                        </div>
+                        <button class="btn btn-success btn-lg btn-block btn-send">
+                            <i class="fa fa-check-square-o pull-left"></i>Create offer
+                        </button>
+                        <button class="btn btn-danger btn-block btn-cancel">
+                            <i class="fa fa-remove pull-left"></i>Close
+                        </button>
+                        <button class="btn btn-info btn-block btn-refresh">
+                            <i class="fa fa-refresh pull-left"></i>Refresh inventory
+                        </button>
+                        <button class="btn btn-default btn-block btn-clear">
+                            <i class="fa fa-trash-o pull-left"></i>Clear
+                        </button>
+                        <div style="margin-top: 10px;">
+                            <label for="autocancel">Auto cancel after 30min&nbsp;</label>
+                            <input type="checkbox" checked="checked" name="autocancel" class="autocancel">
+                        </div>
+                        <div class="inv-total-value">
+                            <h4>Total inventory value</h4>
+                            <span class="t-value">0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+<script id="tpl-inv-item" type="text/x-mustache">
+            <div data-price="{{price}}" data-asset-id="{{id}}" class="item">
+                <div class="item-picture">
+                    <img src="{{img}}">
+                </div>
+                <div class="item-name">{{name}}</div>
+                <div class="item-price">{{fprice}}</div>
+            </div>
+        </script>
+<script id="tpl-r-duel" type="text/x-mustache">
+            <tr data-rid="{{round_id}}" data-c-id="{{created_by.steam_id}}" data-status="{{status}}" data-value="{{c_value}}" data-tvalue="{{total_rvalue}}" data-side="{{created_by.side}}" class="duel">
+                <td class="side">
+                    <img src="/img/{{created_by.side}}-side.png" width="32">
+                </td>
+                <td class="c-profile">
+                    <a title="{{created_by.name}}" href="https://steamcommunity.com/profiles/{{created_by.steam_id}}" target="_blank" class="c-profile-wrp">
+                        <img src="{{created_by.avatar}}">
+                    </a>{{#if joined_by}}
+                    <span class="d-opponent">
+                        <span class="vs-inline">VS.</span>
+                        <a title="{{joined_by.name}}" href="https://steamcommunity.com/profiles/{{joined_by.steam_id}}" target="_blank" class="c-profile-wrp">
+                            <img src="{{joined_by.avatar}}">
+                        </a>
+                    </span>{{/if}}
+                </td>
+                <td class="c-items">
+                    <div class="fw-items">{{#each c_items}}
+                        <div title="{{name}}" data-price="{{price}}" data-toggle="tooltip" data-placement="top" class="item">
+                            <img src="{{img}}">
+                            <div class="item-price">{{fprice}}</div>
+                        </div>{{/each}}
+{{#if c_items_extra}}
+                        <div class="items-extra">+{{c_items_extra}} more items</div>{{/if}}
+                    </div>
+                    <div class="sw-items">
+                        <div class="items-extra">{{c_items_count}} items</div>
+                    </div>
+                </td>
+                <td class="duel-j">
+                    <div>
+                        <img src="/img/coins-white.png" width="16">
+                        <span class="r-value"> {{total_frvalue}}</span>
+                    </div>{{#if joined_by}}
+{{else}}
+                    <span class="text-muted">{{join_min}} - {{join_max}}</span>{{/if}}
+                </td>
+                <td class="duel-status"></td>
+                <td class="duel-info">
+                    <button class="btn btn-info btn-join">
+                        <i class="fa fa-play-circle"></i> Join
+                    </button>
+                    <button class="btn btn-default btn-details">
+                        <i class="fa fa-eye"></i> Watch
+                    </button>
+                </td>
+            </tr>
+        </script>
+<script id="tpl-history" type="text/x-mustache">
+            <div class="h-ctn">
+                <table class="duel-history no-background">
+                    <thead>
+                        <tr>
+                            <th>Created by</th>
+                            <th></th>
+                            <th>Joined by</th>
+                            <th>Total value</th>
+                            <th>Roll</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </script>
+<script id="tpl-history-row" type="text/x-mustache">
+            <tr data-rid="{{_id}}">
+                <td>
+                    <a title="{{created_by.name}}" href="https://steamcommunity.com/profiles/{{created_by.steam_id}}" target="_blank">
+                        <img src="{{created_by.avatar}}" title="{{created_by.name}}">
+                    </a>
+                </td>
+                <td>vs.</td>
+                <td>
+                    <a title="{{joined_by.name}}" href="https://steamcommunity.com/profiles/{{joined_by.steam_id}}" target="_blank">
+                        <img src="{{joined_by.avatar}}" title="{{joined_by.name}}">
+                    </a>
+                </td>
+                <td>{{total}}</td>
+                <td>{{roll}}</td>
+                <td>
+                    <img src="/img/{{winner_side}}-side.png" width="32" class="no-shadow">
+                    <img src="{{winner.avatar}}">
+                </td>
+                <td style="width: 22%;">
+                    <button class="btn btn-info btn-replay">
+                        <i class="fa fa-eye"></i> Replay
+                    </button>
+                    <a href="/coinflip/details/{{_id}}" target="_blank" class="btn btn-default"> Details</a>
+                </td>
+            </tr>
+        </script>
+<script id="tpl-duel-details" type="text/x-mustache">
+            <div data-rid="{{round_id}}" class="duel-details">
+                <div class="dt-status">
+                    <div class="duel-status"></div>
+                </div>
+                <div class="row">
+                    <div data-side="{{created_by.side}}" class="col-xs-6 cblock">
+                        <a href="https://steamcommunity.com/profiles/{{created_by.steam_id}}" target="_blank" class="profile">
+                            <div class="img-wrp">
+                                <img src="{{created_by.avatar}}" width="64">
+                                <div class="p-level">level {{created_by.level}}</div>
+                            </div>
+                            <h4>{{created_by.name}}</h4>
+                            <h5>{{c_fvalue}}</h5>
+                        </a>
+                        <div class="row items">
+                            <p class="text-center total">{{c_odds}}</p>{{#each c_items}}
+                            <div class="row row-item">
+                                <div class="col-xs-12 col-md-3">
+                                    <img src="{{img}}">
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="item-name">{{name}}</div>
+                                </div>
+                                <div class="col-xs12 col-md-3">
+                                    <div class="item-price">{{fprice}}</div>
+                                </div>
+                            </div>{{/each}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6 jblock">{{#if joined_by}}
+                        <a href="https://steamcommunity.com/profiles/{{joined_by.steam_id}}" target="_blank" class="profile">
+                            <div class="img-wrp">
+                                <img src="{{joined_by.avatar}}" width="64">
+                                <div class="p-level">level {{joined_by.level}}</div>
+                            </div>
+                            <h4>{{joined_by.name}}</h4>
+                            <h5>{{j_fvalue}}</h5>
+                        </a>
+                        <div class="row items hide-items">
+                            <p class="text-center total">{{j_odds}}</p>{{#each j_items}}
+                            <div class="row row-item">
+                                <div class="col-xs-12 col-md-3">
+                                    <img src="{{img}}">
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="item-name">{{name}}</div>
+                                </div>
+                                <div class="col-xs12 col-md-3">
+                                    <div class="item-price">{{fprice}}</div>
+                                </div>
+                            </div>{{/each}}
+                        </div>{{/if}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="s-hash">Server seed (hashed) {{server_hash}}</p>
+                    </div>
+                </div>
+            </div>
+        </script>

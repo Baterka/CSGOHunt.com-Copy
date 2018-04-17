@@ -1,0 +1,51 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center"><a href="/jackpot/history" class="btn btn-default btn-lg">Jackpot history</a>
+                    <a href="/" class="btn btn-default btn-lg">Coinflip history</a></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><h2 style="color: #c7413b;">Total bet: <%= user.coinflipTotalBet %></h2></div>
+            <div class="col-md-3"><h2 style="color: #2ecc71;">Total won: <%= user.coinflipTotalWon %></h2></div>
+            <div class="col-md-3"><h2 style="color: grey;">Profit: <%= Number(user.coinflipTotalWon - user.coinflipTotalBet.toFixed(2)) %></h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table style="margin-top: 20px;" class="table std-table">
+                    <thead>
+                    <tr>
+                        <th>Duel #</th>
+                        <th>End date</th>
+                        <th>Total value</th>
+                        <th>Win/Lose</th>
+                        <th>Trade offer Code</th>
+                        <th>Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rounds.forEach(round => { %>
+                    <tr>
+                        <td>
+                            <%= round.roundID; %>
+                        </td>
+                        <td>
+                            <%= round.updatedAt; %>
+                        </td>
+                        <td><%= round.totalValue; %></td>
+                        <td>
+                            <%- (round.won ? "<strong style=\"color: #67d95f;\">W</strong>" : "<strong style=\"color: #d9534f;\">L</strong>") %>
+                        </td>
+                        <td><%= round.pot; %></td>
+                        <td><%= round.pin; %></td>
+                        <td>
+                            <a href="/coinflip/details/<%= round.roundID; %>" class="btn btn-info">Details</a>
+                    </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

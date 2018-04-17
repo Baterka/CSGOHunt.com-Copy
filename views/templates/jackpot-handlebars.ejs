@@ -1,0 +1,60 @@
+<script id="event-template-start" type="text/x-handlebars-template">
+    <div class="event event-start">New round started with hash {{hash}}</div>
+</script>
+<script id="p-odd-template" type="text/x-handlebars-template">
+    <div data-title="{{name}}" data-trigger="popover" class="p-odd"><img src="{{avatar}}"><span>{{percent}}</span></div>
+</script>
+<script id="event-template-update" type="text/x-handlebars-template">
+    <div class="event event-update">
+        <span class="event-user-profile">
+            <span class="event-user-picture">
+                <img src="{{betDetails.user.avatar}}">
+                <span class="player-level"></span>
+            </span>
+            <span class="user-name">{{betDetails.user.name}}</span>
+        </span>
+        <span class="event-user-bet"> placed {{betDetails.nbrItems}} items valued at <strong>{{betDetails.fValuedAt}}</strong></span>
+    </div>
+</script>
+<script id="event-template-end" type="text/x-handlebars-template">
+    <div class="event event-end">
+        <div class="event-winner">
+            <span class="event-user-profile">
+                <img src="{{winner.avatar}}" width="45">
+                <span class="user-name">{{winner.name}}</span>
+            </span> won {{fTotalValue}} with {{winnerPercent}}% chance
+        </div>
+        <div class="event-round-data">
+            Round secret: {{secret}} - percent: {{random}} <a href="/faq#{{hash}};{{secret}};{{random}};{{nbrTickets}}">what is this?</a>
+        </div>
+    </div>
+</script>
+<script id="event-template-broadcast" type="text/x-handlebars-template">
+    <div class="event event-broadcast">
+        <div class="alert alert-info">{{message}}</div>
+    </div>
+</script>
+<script id="pot-item" type="text/x-handlebars-template">
+    <div class="jackpot-item pull-left">
+        <div class="jackpot-item-wrp"><img src="{{img}}" alt="{{name}}">
+            <div class="item-name">{{name}}</div>
+            <div class="item-price">{{price}}</div>
+        </div>
+    </div>
+</script>
+<script type="text/x-handlebars-template" class="confirm-modal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">&times</span></button>
+                    <h4 class="modal-title"></h4></div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-cancel">Cancel</button>
+                    <button type="button" class="btn btn-success btn-confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

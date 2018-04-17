@@ -1,0 +1,53 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>FAQ</h1>
+                <h3>What items can I bet ?</h3>
+                <p>You can only bet CS:GO items. If there is any other items in the trade, such as trading cards, gifts etc... it will be automaticaly declined.</p>
+                <h3>How is the winner selected ?</h3>
+                <p>A ticket is equal to 0.01 in bet value (1 ticket = 0.01 of the skin you submitted EX: skin valued at 5.00 = 500 tickets). The more tickets a player has, the more
+                    chances of winning he gets.
+                    As soon as a round is over, the winning ticket number will be calculated based on the random percentage and the total number of tickets with the following
+                    formula:</p>
+                <span class="pre">Math.floor((TotalNumberOfTickets - 0.0000000001) * (winnerPercentage / 100))</span>
+                <p style="margin-top: 20px;">Keep in mind that the order of the tickets are the same as the order of the deposit. For instance, if the first player places 50.00 in
+                    bet
+                    value into the pot, he will own tickets 1-5000,
+                    then if the second player places 20.00 in bet value, he will own tickets from 5001 to 7001. This will keep going until the pot is full at which point the round
+                    is
+                    set to end. Also note that the bots may accept a few late bets if there is any.</p>
+                <h3>What is the round hash ?</h3>
+                <p>The hash is a md5 encryption of the round secret and winning percentage in the following format
+                    <span class="pre">percentage:secret</span>
+                </p>
+                <p>When the round is over, both the secret and the winning percentage are revealed. You can verify that the hash matches with them with the form below.</p>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="hash" class="control-label">Hash</label>
+                        <input id="hash" type="text" autocomplete="off" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="percent" class="control-label">Percent</label>
+                        <input id="percent" type="number" autocomplete="off" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="secret" class="control-label">Secret</label>
+                        <input id="secret" type="text" autocomplete="off" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="nbrTickets" class="control-label">Number of tickets</label>
+                        <input id="nbrTickets" type="text" autocomplete="off" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button id="verify-btn" type="button" class="btn btn-default">Find winning ticket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('scripts') %>
+<script type="text/javascript" src="/js/md5.js"></script>
+<script type="text/javascript" src="/js/verify.js"></script>

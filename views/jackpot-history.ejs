@@ -1,0 +1,80 @@
+<div id="main-content">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <a href="/" class="btn btn-default btn-lg">Jackpot history</a>
+                <a href="/coinflip/history" class="btn btn-default btn-lg">Coinflip history</a></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><h2 style="color: #c7413b;">Total bet: <%= user.totalBet %></h2></div>
+            <div class="col-md-3"><h2 style="color: #2ecc71;">Total won: <%= user.totalWon %></h2></div>
+            <div class="col-md-3"><h2 style="color: grey;">Profit: <%= Number(user.totalWon - user.totalBet.toFixed(2)) %></h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table std-table">
+                    <thead>
+                    <tr>
+                        <th>Round #</th>
+                        <th>Status</th>
+                        <th>Pin</th>
+                        <th>Win/Lose</th>
+                        <th>Pot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% rounds.forEach(round => { %>
+                    <tr>
+                        <td>
+                            <% if(round.status === "Over") { %>
+                            <a href="/jackpot/details/<%= round.roundID; %>/"><%= round.roundID; %></a>
+                            <% } else { %>
+                            <%= round.roundID; %>
+                            <% } %>
+                        </td>
+                        <td><%= round.status; %></td>
+                        <td><%= round.pin; %></td>
+                        <td>
+                            <% if(round.status === "Over") { %>
+                            <%= (round.won ? "Win" : "Lose") %>
+                            <% } else { %>
+                            ?
+                            <% } %>
+                        </td>
+                        <td><%= round.pot; %></td>
+                    </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table std-table">
+                    <thead>
+                    <tr>
+                        <th>TradeID</th>
+                        <th>Status</th>
+                        <th>Message</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% offers.forEach(offer => { %>
+                    <tr>
+                        <td>
+                            <% if(offer.status === "Active") { %>
+                            <a href="https://steamcommunity.com/tradeoffer/<%= offer.offerID; %>/" target="_blank"><%= offer.offerID; %></a>
+                            <% } else { %>
+                            <%= offer.offerID; %>
+                            <% } %>
+                        </td>
+                        <td><%= offer.status; %></td>
+                        <td><%= offer.message; %></td>
+                        <td><%= offer.value; %></td>
+                    </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
