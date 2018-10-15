@@ -1,6 +1,8 @@
 # CSGOHunt.com - Copy
 
-Almost iodentical copy of [CSGOHunt.com](https://www.csgohunt.com/). Full NodeJS project.
+## This project was private and paid. I made it public and it means it will most likely never be updated. Enjoy!
+
+Almost identical copy of [CSGOHunt.com](https://www.csgohunt.com/). Full NodeJS project.
 
 ### Powered by
 
@@ -39,7 +41,7 @@ $ node bot/[jackpot|coinflip].js
 
 I recommend using [pm2](https://github.com/Unitech/pm2) for managing bot.
 
-### Todos
+### What you can do for project
  - Code revision
  - Testing
  - Rewrite to Non-relational database (MongoDB)
