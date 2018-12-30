@@ -1,6 +1,6 @@
 # CSGOHunt.com - Copy
 
-## This project was private and paid. I made it public and it means it will most likely never be updated. Enjoy!
+## This project was private and paid. I made it public and it means it will most likely never be updated and there is no guarantee that it works and does not have security flaws. Enjoy!
 
 Almost identical copy of [CSGOHunt.com](https://www.csgohunt.com/). Full NodeJS project.
 
